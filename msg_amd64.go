@@ -20,10 +20,11 @@ void *GoObjc_GetObjectSuperClassStruct(void *obj) {
 */
 import "C"
 import (
-	"github.com/mkrautz/variadic"
 	"math"
 	"reflect"
 	"unsafe"
+
+	"github.com/mkrautz/variadic"
 )
 
 func unpackStruct(val reflect.Value) []uintptr {
@@ -148,7 +149,7 @@ func sendMsg(obj Object, sendFuncName string, selector string, args ...interface
 	fc.Words[1] = uintptr(sel)
 
 	if len(memArgs) > 0 {
-		fc.Memory = unsafe.Pointer(&memArgs[0])
+		fc.Memory = uintptr(unsafe.Pointer(&memArgs[0]))
 		fc.NumMemory = int64(len(memArgs))
 	}
 
